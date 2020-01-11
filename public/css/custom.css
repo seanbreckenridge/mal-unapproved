@@ -1,0 +1,28 @@
+nav {
+  margin: 3rem 0rem;
+}
+
+h3 {
+  vertical-align: top;
+}
+
+nav a:last-of-type {
+  margin-left: 1rem;
+}
+
+ol > li {
+  list-style-type: none;
+}
+
+body {
+  background-color: black;
+  color: #ccc;
+}
+
+a.button {
+  color: #ccc;
+}
+
+a.button:hover {
+  color: #9c9c9c;
+}
