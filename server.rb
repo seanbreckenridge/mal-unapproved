@@ -5,6 +5,10 @@ require 'haml'
 
 $server_dir = File.expand_path(File.dirname(__FILE__))
 $json_file = File.join($server_dir, "unapproved.json")
+if ! File.exists?($json_file)
+  abort "the cache json file, #{$json_file} does not exist"
+end
+
 
 # Uses $json_file and request_type (an symbol)
 # to read the local json cache and return
@@ -30,6 +34,8 @@ end
 
 set :haml, :format => :html5
 set :public_folder, "public"
+set :environment, :production
+set :port, 5252
 
 get '/' do
   redirect to('/anime')
