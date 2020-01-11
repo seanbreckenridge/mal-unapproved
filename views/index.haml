@@ -16,10 +16,11 @@
         %a{ :class => "button", :href => "/manga" } manga
         %a{ :href => "/raw.json" } download raw file
       %ul
-        %li= "There are currently #{@urls.count} unapproved #{@request_type}"
+        %li= "There are currently #{@ids.count} unapproved #{@request_type}"
         %li= @updated_desc
       %ol
-        - @urls.reverse.each do |u|
+        - @ids.reverse.each do |i|
           %li
-            %a{ :href=> u }= u
+            %span{}= "#{i} (#{@data[i]['type']}) - "
+            %a{ :href => @data[i]["url"] }= @data[i]["name"]
 

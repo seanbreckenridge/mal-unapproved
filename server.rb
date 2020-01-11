@@ -5,6 +5,7 @@ require 'haml'
 
 $server_dir = File.expand_path(File.dirname(__FILE__))
 $json_file = File.join($server_dir, "unapproved.json")
+$json_info = File.join($server_dir, "unapproved_info.json")
 if ! File.exists?($json_file)
   abort "the cache json file, #{$json_file} does not exist"
 end
@@ -23,8 +24,15 @@ def read_json(request_type)
     @url_part = "anime"
   end
   @parsed_json = JSON.load File.new($json_file)
-  @ids = @parsed_json[@json_key]
-  @ids.map { |i| "https://myanimelist.net/#{@url_part}/#{i}" }
+  @parsed_info = JSON.load File.new($json_info)
+  @ids = @parsed_json[@json_key].map(&:to_s)
+  @info = @parsed_info[@json_key]
+  @data = {}
+  @ids.each do |i|
+    @data[i] = @info.fetch(i, {"name" => "https://myanimelist.net/#{@url_part}/#{i}", "type" => "Unknown"})
+    @data[i]["url"] = "https://myanimelist.net/#{@url_part}/#{i}"
+  end
+  [@ids, @data]
 end
 
 def file_updated_minutes_ago
@@ -49,7 +57,7 @@ end
 
 get '/anime' do
   @request_type = :anime
-  @urls = read_json @request_type
+  @ids, @data = read_json @request_type
   @updated_desc = file_updated_minutes_ago
   @octo = octocat
   haml :index
@@ -57,7 +65,7 @@ end
 
 get '/manga' do
   @request_type = :manga
-  @urls = read_json @request_type
+  @ids, @data = read_json @request_type
   @updated_desc = file_updated_minutes_ago
   @octo = octocat
   haml :index
