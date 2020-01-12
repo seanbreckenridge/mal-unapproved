@@ -44,7 +44,7 @@ def main():
         if id_str not in name_cache[a_k]:
             name_cache[a_k][id_str] = request_jikan("anime", anime_id)
 
-    for manga_id in id_cache["unapproved_manga"]:
+    for manga_id in reversed(id_cache["unapproved_manga"][-200:]):
         id_str = str(manga_id)
         if id_str not in name_cache[m_k]:
             name_cache[m_k][id_str] = request_jikan("manga", manga_id)
