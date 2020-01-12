@@ -29,8 +29,13 @@ def read_json(request_type)
   @info = @parsed_info[@json_key]
   @data = {}
   @ids.each do |i|
-    @data[i] = @info.fetch(i, {"name" => "https://myanimelist.net/#{@url_part}/#{i}", "type" => "Unknown"})
-    @data[i]["url"] = "https://myanimelist.net/#{@url_part}/#{i}"
+    @id_url = "https://myanimelist.net/#{@url_part}/#{i}"
+    if @info.has_key?(i)
+      @data[i] = @info[i]
+    else
+      @data[i] = {"name" => @id_url, "type" => "?"}
+    end
+    @data[i]["url"] = @id_url
   end
   [@ids, @data]
 end
