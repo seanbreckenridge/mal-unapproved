@@ -21,6 +21,9 @@
       %ol
         - @ids.reverse.each do |i|
           %li
-            %span{}= "#{i} (#{@data[i]['type']}) - "
+            %span{}= "#{i} (#{@data[i]['type']}) "
+            - if @data[i]["nsfw"]
+              %span{ :class => "nsfw" }= "[NSFW] "
+            %span{}= "- "
             %a{ :href => @data[i]["url"] }= @data[i]["name"]
 

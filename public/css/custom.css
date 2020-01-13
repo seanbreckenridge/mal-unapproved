@@ -38,3 +38,7 @@ a.button {
 a.button:hover {
   color: #9c9c9c;
 }
+
+.nsfw {
+  color: #ac0900;
+}

@@ -21,7 +21,8 @@ def request_jikan(endpoint, _id, retry=0, ex=None):
         print(f"requesting {endpoint}/{_id}")
         resp = getattr(jikan, endpoint)(_id)
         time.sleep(1)
-        return {"name": str(resp["title"]), "type": str(resp["type"])}
+        nsfw = 12 in [g["mal_id"] for g in resp["genres"]]
+        return {"name": str(resp["title"]), "type": str(resp["type"]), "nsfw": nsfw}
     except (jikanpy.exceptions.JikanException, jikanpy.exceptions.APIException) as jex:
         print("...failed with {}, retrying ({} of 5)".format(type(jex).__name__, retry))
         time.sleep((retry + 1) * 2)

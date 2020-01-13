@@ -33,7 +33,7 @@ def read_json(request_type)
     if @info.has_key?(i)
       @data[i] = @info[i]
     else
-      @data[i] = {"name" => @id_url, "type" => "?"}
+      @data[i] = {"name" => @id_url, "type" => "?", "nsfw" => false}
     end
     @data[i]["url"] = @id_url
   end
