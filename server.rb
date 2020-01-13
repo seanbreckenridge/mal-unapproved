@@ -6,6 +6,7 @@ require 'haml'
 $server_dir = File.expand_path(File.dirname(__FILE__))
 $json_file = File.join($server_dir, "unapproved.json")
 $json_info = File.join($server_dir, "unapproved_info.json")
+$json_tar = File.join($server_dir, "unapproved.tar.gz")
 if ! File.exists?($json_file)
   abort "the cache json file, #{$json_file} does not exist"
 end
@@ -76,7 +77,7 @@ get '/manga' do
   haml :index
 end
 
-get '/raw.json' do
-  etag File.read($json_file)  # only re-send when json contents change
-  send_file($json_file, :disposition => "attachment", :filename => File.basename($json_file))
+get '/raw' do
+  `cd #{$server_dir}; tar cvzf #{$json_tar} unapproved.json unapproved_info.json` 
+  send_file($json_tar, :disposition => "attachment", :filename => File.basename($json_tar))
 end

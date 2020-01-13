@@ -14,7 +14,7 @@
         %h3= "Unapproved MAL Entries - #{@request_type.to_s.capitalize}"
         %a{ :class => "button", :href => "/anime" } anime
         %a{ :class => "button", :href => "/manga" } manga
-        %a{ :href => "/raw.json" } download raw file
+        %a{ :href => "/raw" } download raw file
       %ul
         %li= "There are currently #{@ids.count} unapproved #{@request_type}"
         %li= @updated_desc
