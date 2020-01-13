@@ -1,3 +1,10 @@
+"""
+This caches related information in unapproved_info.json
+
+For each ID, it caches the name, the type (e.g. OVA/TV)
+and if the entry is NSFW
+"""
+
 import os
 import json
 import time
@@ -45,7 +52,7 @@ def main():
         if id_str not in name_cache[a_k]:
             name_cache[a_k][id_str] = request_jikan("anime", anime_id)
 
-    for manga_id in reversed(id_cache["unapproved_manga"][-200:]):
+    for manga_id in reversed(id_cache["unapproved_manga"]):
         id_str = str(manga_id)
         if id_str not in name_cache[m_k]:
             name_cache[m_k][id_str] = request_jikan("manga", manga_id)
