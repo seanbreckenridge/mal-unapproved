@@ -23,11 +23,12 @@ m_k = "unapproved_manga"
 
 def request_jikan(endpoint, _id, retry=0, ex=None):
     if retry >= 5:
-        raise ex
+        print(ex)
+        return None
     try:
         print(f"requesting {endpoint}/{_id}")
         resp = getattr(jikan, endpoint)(_id)
-        time.sleep(1)
+        time.sleep(3)
         nsfw = 12 in [g["mal_id"] for g in resp["genres"]]
         return {"name": str(resp["title"]), "type": str(resp["type"]), "nsfw": nsfw}
     except (jikanpy.exceptions.JikanException, jikanpy.exceptions.APIException) as jex:
@@ -50,12 +51,16 @@ def main():
     for anime_id in id_cache["unapproved_anime"]:
         id_str = str(anime_id)
         if id_str not in name_cache[a_k]:
-            name_cache[a_k][id_str] = request_jikan("anime", anime_id)
+            response = request_jikan("anime", anime_id)
+            if response is not None:
+                name_cache[a_k][id_str] = response
 
     for manga_id in reversed(id_cache["unapproved_manga"]):
         id_str = str(manga_id)
         if id_str not in name_cache[m_k]:
-            name_cache[m_k][id_str] = request_jikan("manga", manga_id)
+            response = request_jikan("manga", manga_id)
+            if response is not None:
+                name_cache[m_k][id_str] = response
 
     with open(info_cache_file, 'w') as c_f:
         json.dump(name_cache, c_f)
