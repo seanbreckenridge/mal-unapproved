@@ -1,17 +1,29 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 #
 # Run by GNU-screen in the background
 # every hour, saves the currently
 # unapproved entries to ./unapproved.json
 # Runs cache_name.py to cache names/types
 # for those entries
+#
+# cache_loop.sh once just runs the loop
+# once and then exits
 
 THIS_DIR=$(dirname $(realpath "$0"))
 
-while true; do
+function run_loop() {
   cd "${HOME}/.mal-id-cache/repo" && pipenv run mal_id_cache --unapproved json
   cp "${HOME}/.mal-id-cache/repo/unapproved_mal_ids.json" "${THIS_DIR}/unapproved.json"
   python3 "${THIS_DIR}/cache_names.py"
+}
+
+if [ "$1" = "once" ]; then
+  run_loop
+  exit 0
+fi
+
+while true; do
+  run_loop
   date
   sleep 3600
 done

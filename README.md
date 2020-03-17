@@ -15,6 +15,6 @@ Host an instance of jikan on port 8000. See [here](https://github.com/jikan-me/j
 ```
 bundle install
 pip3 install --user jikanpy requests
-cache_loop.sh # (run once to build the initial unapproved/name cache)
+./cache_loop.sh once # (run once to build the initial unapproved/name cache)
 ruby server.rb
 ```
