@@ -53,9 +53,9 @@ def octocat
 end
 
 set :haml, :format => :html5
-set :public_folder, "public"
+set :public_folder, File.dirname(__FILE__) + "/public"
 set :environment, :production
-set :port, 5252
+set :port, 5123
 
 get '/' do
   redirect to('/anime')
