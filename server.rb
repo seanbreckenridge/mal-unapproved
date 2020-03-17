@@ -3,14 +3,54 @@ require 'json'
 require 'sinatra'
 require 'haml'
 
+# Don't read from the file if it hasn't changed
+# since the last time we read the disk
+class JsonCache
+  attr_reader :filepath, :modtime, :cached_value
+
+  def initialize(filepath)
+    unless File.exists?(filepath)
+      abort "Filepath passed to cache initialization does't exist"
+    end
+    @filepath = filepath
+    @modtime = get_mod_time
+    @cached_value = read_json
+  end
+
+  # get the modification time of the file
+  def get_mod_time
+    File.mtime(@filepath)
+  end
+
+  # read the json file
+  def read_json
+    JSON.load File.new(@filepath)
+  end
+
+  # if the file has changed, read from the file
+  # else return the cached value
+  def get
+    if @modtime == File.mtime(@filepath)
+      @cached_value
+    else
+      @cached_value = read_json
+    end
+  end
+end
+
 $server_dir = File.expand_path(File.dirname(__FILE__))
 $json_file = File.join($server_dir, "unapproved.json")
 $json_info = File.join($server_dir, "unapproved_info.json")
 $json_tar = File.join($server_dir, "unapproved.tar.gz")
-if ! File.exists?($json_file)
+unless File.exists?($json_file)
   abort "the cache json file, #{$json_file} does not exist"
 end
+unless File.exists?($json_info)
+  abort "the cache info file, #{$json_file} does not exist"
+end
 
+$id_cache = JsonCache.new($json_file)
+$info_cache = JsonCache.new($json_info)
 
 # Uses $json_file and request_type (an symbol)
 # to read the local json cache and return
@@ -24,8 +64,8 @@ def read_json(request_type)
     @json_key = "unapproved_anime"
     @url_part = "anime"
   end
-  @parsed_json = JSON.load File.new($json_file)
-  @parsed_info = JSON.load File.new($json_info)
+  @parsed_json = $id_cache.get()
+  @parsed_info = $info_cache.get()
   @ids = @parsed_json[@json_key].map(&:to_s)
   @info = @parsed_info[@json_key]
   @data = {}
