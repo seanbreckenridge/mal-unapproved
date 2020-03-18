@@ -14,7 +14,7 @@ class JsonCache
     end
     @filepath = filepath
     @modtime = get_mod_time
-    @cached_value = read_json
+    @cached_value = read_from_json
   end
 
   # get the modification time of the file
@@ -23,17 +23,18 @@ class JsonCache
   end
 
   # read the json file
-  def read_json
+  def read_from_json
     JSON.load File.new(@filepath)
   end
 
-  # if the file has changed, read from the file
-  # else return the cached value
   def get
-    if @modtime == File.mtime(@filepath)
+    # use cached value
+    if @modtime == get_mod_time
       @cached_value
+    # update file modification time and re-read updated json file
     else
-      @cached_value = read_json
+      @modtime = get_mod_time
+      @cached_value = read_from_json
     end
   end
 end
