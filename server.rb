@@ -47,7 +47,7 @@ unless File.exists?($json_file)
   abort "the cache json file, #{$json_file} does not exist"
 end
 unless File.exists?($json_info)
-  abort "the cache info file, #{$json_file} does not exist"
+  abort "the cache info file, #{$json_info} does not exist"
 end
 
 $id_cache = JsonCache.new($json_file)
