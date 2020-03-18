@@ -97,25 +97,25 @@ set :public_folder, File.dirname(__FILE__) + "/public"
 set :environment, :production
 set :port, 5123
 
+def controller(request_type)
+  @ids, @data = read_json request_type
+  @updated_desc = file_updated_minutes_ago
+  return [request_type, @ids, @data, @updated_desc, octocat]
+end
+
+
 get '/' do
-  u = request.url
-  # make sure both the path and directory are redirected to the anime index
-  redirect URI::join(u.end_with?("/") ? u : "#{u}/", "./anime")
+  @request_type, @ids, @data, @updated_desc, @octo = controller(:anime)
+  haml :index
 end
 
 get '/anime' do
-  @request_type = :anime
-  @ids, @data = read_json @request_type
-  @updated_desc = file_updated_minutes_ago
-  @octo = octocat
+  @request_type, @ids, @data, @updated_desc, @octo = controller(:anime)
   haml :index
 end
 
 get '/manga' do
-  @request_type = :manga
-  @ids, @data = read_json @request_type
-  @updated_desc = file_updated_minutes_ago
-  @octo = octocat
+  @request_type, @ids, @data, @updated_desc, @octo = controller(:manga)
   haml :index
 end
 
