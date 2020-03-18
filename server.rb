@@ -121,6 +121,6 @@ get '/manga' do
 end
 
 get '/raw' do
-  `cd #{$server_dir}; tar cvzf #{$json_tar} unapproved.json unapproved_info.json` 
+  `cd "#{$server_dir}"; rm #{$json_tar}; tar cvzf #{$json_tar} unapproved.json unapproved_info.json`
   send_file($json_tar, :disposition => "attachment", :filename => File.basename($json_tar))
 end
