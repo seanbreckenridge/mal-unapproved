@@ -42,7 +42,8 @@ end
 $server_dir = File.expand_path(File.dirname(__FILE__))
 $json_file = File.join($server_dir, "unapproved.json")
 $json_info = File.join($server_dir, "unapproved_info.json")
-$json_tar = File.join($server_dir, "unapproved.tar.gz")
+$json_tar_name = "unapproved.tar.gz"
+$json_tar = File.join($server_dir, $json_tar_name)
 unless File.exists?($json_file)
   abort "the cache json file, #{$json_file} does not exist"
 end
@@ -121,6 +122,6 @@ get '/manga' do
 end
 
 get '/raw' do
-  `cd "#{$server_dir}"; rm #{$json_tar}; tar cvzf #{$json_tar} unapproved.json unapproved_info.json`
+  `cd "#{$server_dir}"; rm "#{$json_tar_name}"; tar cvzf "#{$json_tar_name}" unapproved.json unapproved_info.json`
   send_file($json_tar, :disposition => "attachment", :filename => File.basename($json_tar))
 end
