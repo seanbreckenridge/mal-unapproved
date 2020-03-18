@@ -98,7 +98,9 @@ set :environment, :production
 set :port, 5123
 
 get '/' do
-  redirect to('/anime')
+  u = request.url
+  # make sure both the path and directory are redirected to the anime index
+  redirect URI::join(u.end_with?("/") ? u : "#{u}/", "./anime")
 end
 
 get '/anime' do
