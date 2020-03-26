@@ -2,7 +2,7 @@
 
 A Sinatra website that serves the output of [`mal_id_cache --unapproved json`](https://github.com/seanbreckenridge/mal-id-cache)
 
-Consists of `cache_loop.sh`, which keeps the JSON cache file up to date and the server, which are both run with [screen](https://www.gnu.org/software/screen/), see [here](https://github.com/seanbreckenridge/vps/blob/master/restart).
+Consists of `cache_loop.sh`, which keeps the JSON cache file up to date and the server, which are both run with [forever](https://github.com/foreversd/forever), see [here](https://github.com/seanbreckenridge/vps/blob/master/restart).
 
 ##### Install/Run:
 
