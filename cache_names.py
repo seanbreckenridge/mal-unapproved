@@ -41,7 +41,6 @@ def request_jikan(endpoint, _id, retry=0, ex=None):
 def main():
     with open(id_cache_file) as id_f:
         id_cache = json.load(id_f)
-        id_cache[a_k] = id_cache[a_k]
     if os.path.exists(info_cache_file):
         with open(info_cache_file) as c_f:
             name_cache = json.load(c_f)
@@ -55,7 +54,7 @@ def main():
             if response is not None:
                 name_cache[a_k][id_str] = response
 
-    for manga_id in reversed(id_cache["unapproved_manga"]):
+    for manga_id in id_cache["unapproved_manga"]:
         id_str = str(manga_id)
         if id_str not in name_cache[m_k]:
             response = request_jikan("manga", manga_id)
