@@ -60,11 +60,11 @@ $info_cache = JsonCache.new($json_info)
 def read_json(request_type)
   case request_type
   when :manga
-    @json_key = "unapproved_manga"
-    @url_part = "manga"
+    @json_key = "unapproved_manga".freeze
+    @url_part = "manga".freeze
   else
-    @json_key = "unapproved_anime"
-    @url_part = "anime"
+    @json_key = "unapproved_anime".freeze
+    @url_part = "anime".freeze
   end
   @parsed_json = $id_cache.get()
   @parsed_info = $info_cache.get()
@@ -72,13 +72,13 @@ def read_json(request_type)
   @info = @parsed_info[@json_key]
   @data = {}
   @ids.each do |i|
-    @id_url = "https://myanimelist.net/#{@url_part}/#{i}"
+    @id_url = "https://myanimelist.net/#{@url_part}/#{i}".freeze
     if @info.has_key?(i)
       @data[i] = @info[i]
     else
-      @data[i] = {"name" => @id_url, "type" => "?", "nsfw" => false}
+      @data[i] = {"name".freeze => @id_url, "type".freeze => "?".freeze, "nsfw".freeze => false}
     end
-    @data[i]["url"] = @id_url
+    @data[i]["url".freeze] = @id_url
   end
   [@ids, @data]
 end
@@ -117,5 +117,5 @@ end
 
 get '/raw' do
   `cd "#{$server_dir}"; rm "#{$json_tar_name}"; tar cvzf "#{$json_tar_name}" unapproved.json unapproved_info.json`
-  send_file($json_tar, :disposition => "attachment", :filename => File.basename($json_tar))
+  send_file($json_tar, :disposition => "attachment".freeze, :filename => File.basename($json_tar))
 end
