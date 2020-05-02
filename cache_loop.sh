@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Run by GNU-screen in the background
+# Run in the background and updates the cache
 # every hour, saves the currently
 # unapproved entries to ./unapproved.json
 # Runs cache_name.py to cache names/types
