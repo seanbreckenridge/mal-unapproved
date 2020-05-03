@@ -119,3 +119,7 @@ get '/raw' do
   `cd "#{$server_dir}"; rm "#{$json_tar_name}"; tar cvzf "#{$json_tar_name}" unapproved.json unapproved_info.json`
   send_file($json_tar, :disposition => "attachment".freeze, :filename => File.basename($json_tar))
 end
+
+not_found do
+  redirect("/404.html")
+end
