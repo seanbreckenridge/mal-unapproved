@@ -50,7 +50,7 @@ def main():
     with open(id_cache_file) as id_f:
         id_cache = json.load(id_f)
 
-    # load previous run cache
+    # load previous name/type cache
     if os.path.exists(info_cache_file):
         with open(info_cache_file) as c_f:
             name_cache = json.load(c_f)
