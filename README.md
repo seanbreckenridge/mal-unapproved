@@ -10,7 +10,7 @@ After installing `ruby`, `bundle`, and `python3.6+`, `uglifycss`:
 
 Assumes you have a built [`mal_id_cache`](https://github.com/seanbreckenridge/mal-id-cache). I run that on my server anyways, so you could just set up a script to periodically `git pull` from that repo. Otherwise, run `mal_id_cache --loop` in the background.
 
-Host an instance of jikan on port 8000. See [here](https://github.com/jikan-me/jikan-rest#01-installation-prerequisites) for more info; my [docker setup](https://github.com/seanbreckenridge/docker-jikan)
+Host an instance of jikan on port 8000. See [here](https://github.com/jikan-me/jikan-rest#01-installation-prerequisites) for more info; my [docker setup](https://gitlab.com/seanbreckenridge/docker-jikan)
 
 Uses `uglifycss` to minify CSS from `./public/raw_css` to `./public/css`. That can be done with `./uglify_css.sh`
 
