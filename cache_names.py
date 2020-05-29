@@ -41,6 +41,7 @@ def request_jikan(endpoint, _id, retry=0, ex=None):
             jikanpy.exceptions.APIException) as jex:
         print("...failed with {}, retrying ({} of 5)".format(
             type(jex).__name__, retry))
+        print(jex)
         time.sleep((retry + 1) * 2)
         request_jikan(endpoint, _id, retry + 1, jex)
 
