@@ -25,5 +25,5 @@ fi
 while true; do
   run_loop
   date
-  sleep 3600
+  sleep 4800
 done
