@@ -9,7 +9,7 @@
 # cache_loop.sh once just runs the loop
 # once and then exits
 
-THIS_DIR=$(dirname $(realpath "$0"))
+THIS_DIR="$(dirname $(realpath "$0"))"
 
 function run_loop() {
   cd "${HOME}/.mal-id-cache/repo" && pipenv run mal_id_cache --unapproved json
@@ -17,7 +17,7 @@ function run_loop() {
   python3 "${THIS_DIR}/cache_names.py"
 }
 
-if [ "$1" = "once" ]; then
+if [[ "$1" = "once" ]]; then
   run_loop
   exit 0
 fi
