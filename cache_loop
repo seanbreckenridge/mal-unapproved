@@ -24,6 +24,6 @@ fi
 
 while true; do
   run_loop
-  date
+  date +'%Y%m%d%H%M%S'
   sleep 4800
 done
