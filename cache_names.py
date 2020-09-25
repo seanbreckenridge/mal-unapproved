@@ -30,7 +30,7 @@ def request_jikan(endpoint, _id, retry=0, ex=None):
     try:
         print(f"requesting {endpoint}/{_id}")
         resp = getattr(jikan, endpoint)(_id)
-        time.sleep(10)
+        time.sleep(60)
         nsfw = 12 in [g["mal_id"] for g in resp["genres"]]
         return {
             "name": str(resp["title"]),
