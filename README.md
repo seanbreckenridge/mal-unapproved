@@ -21,3 +21,5 @@ pip3 install --user jikanpy requests
 ./cache_loop & # run in background to keep unapproved IDs updated
 ruby server.rb # to serve html
 ```
+
+I handle the backgrounds tasks using supervisor [here](https://github.com/seanbreckenridge/vps)
