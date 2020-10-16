@@ -44,6 +44,7 @@ $json_file = File.join($server_dir, "unapproved.json")
 $json_info = File.join($server_dir, "unapproved_info.json")
 $json_tar_name = "unapproved.tar.gz"
 $json_tar = File.join($server_dir, $json_tar_name)
+$not_found_file = File.join($server_dir, "views", "404.html")
 unless File.exists?($json_file)
   abort "the cache json file, #{$json_file} does not exist"
 end
@@ -120,6 +121,7 @@ get '/raw' do
   send_file($json_tar, :disposition => "attachment".freeze, :filename => File.basename($json_tar))
 end
 
+# using https://github.com/seanbreckenridge/darker_errors
 not_found do
-  redirect("/404.html")
+  send_file $not_found_file
 end
