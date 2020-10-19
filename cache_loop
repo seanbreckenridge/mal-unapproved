@@ -25,5 +25,5 @@ fi
 while true; do
   run_loop
   date +'%Y%m%d%H%M%S'
-  sleep 6h
+  sleep 3h
 done
