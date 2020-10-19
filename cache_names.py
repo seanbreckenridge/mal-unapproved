@@ -37,7 +37,7 @@ def request_jikan(
     try:
         print(f"requesting {endpoint}/{_id}")
         resp: Json = getattr(jikan, endpoint)(_id)
-        time.sleep(60)
+        time.sleep(30)
         nsfw: bool = 12 in [g["mal_id"] for g in resp["genres"]]
         return {"name": str(resp["title"]), "type": str(resp["type"]), "nsfw": nsfw}
     except (jikanpy.exceptions.JikanException, jikanpy.exceptions.APIException) as jex:
