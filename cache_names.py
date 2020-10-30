@@ -35,7 +35,7 @@ def request_jikan(
         print(ex)
         return None
     try:
-        print(f"requesting {endpoint}/{_id}")
+        print(f"requesting {endpoint}/{_id}", flush=True)
         resp: Json = getattr(jikan, endpoint)(_id)
         time.sleep(30)
         nsfw: bool = 12 in [g["mal_id"] for g in resp["genres"]]
