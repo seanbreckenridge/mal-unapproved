@@ -1,4 +1,6 @@
-### mal-unapproved
+This has been replaced by [checker_mal](https://github.com/Hiyori-API/checker_mal), which consolidates `mal_id_cache` and this website into the same application
+
+---
 
 A Sinatra website that serves the output of [`mal_id_cache --unapproved json`](https://github.com/seanbreckenridge/mal-id-cache)
 
